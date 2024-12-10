@@ -1,3 +1,4 @@
+import csv
 from openai import OpenAI
 client = OpenAI()
 
@@ -18,5 +19,29 @@ response = client.chat.completions.create(
   top_p=1
 )
 
-# Access and print the content of the assistant's reply
-print(response.choices[0].message.content)
+# Get the response content
+response_text = response.choices[0].message.content
+
+# Example structure from the assistant's response
+# This will depend on how the model formats the output, so adjust this part accordingly.
+# Here we're assuming the response will be something like:
+# "neoskizzles, purple, candy; loheckles, grayish blue, tart; ..."
+
+# Split the response into fruit data
+fruit_data = response_text.split(';')
+
+# Create a list to store rows for the CSV file
+rows = [["Fruit Name", "Color", "Taste"]]
+
+# Process each piece of fruit data into a row
+for fruit in fruit_data:
+    fruit_info = fruit.split(',')
+    if len(fruit_info) == 3:  # Ensure it has name, color, and taste
+        rows.append([fruit_info[0].strip(), fruit_info[1].strip(), fruit_info[2].strip()])
+
+# Write the rows to a CSV file
+with open('fruits.csv', mode='w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(rows)
+
+print("CSV file has been written successfully!")
