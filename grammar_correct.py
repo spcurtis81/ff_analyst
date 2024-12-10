@@ -17,3 +17,6 @@ response = client.chat.completions.create(
   max_tokens=256,
   top_p=1
 )
+
+# Access and print the content of the assistant's reply
+print(response.choices[0].message.content)
