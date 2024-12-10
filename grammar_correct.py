@@ -17,6 +17,3 @@ response = client.chat.completions.create(
   max_tokens=256,
   top_p=1
 )
-
-# Access the 'content' attribute using dot notation
-print(completion.choices[0].message.content)
