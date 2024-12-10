@@ -12,4 +12,5 @@ completion = client.chat.completions.create(
     ]
 )
 
-completion.choices[0].message["content"]
+# Access the 'content' attribute using dot notation
+print(completion.choices[0].message.content)
